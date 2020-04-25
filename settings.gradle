@@ -1,0 +1,8 @@
+rootProject.name = 'study-boot'
+include 'sample-common'
+include 'sample-domain'
+include 'sample-web-base'
+include 'sample-web-admin'
+include 'sample-web-front'
+include 'sample-batch'
+

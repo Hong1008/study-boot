@@ -1,0 +1,15 @@
+bootJar {
+    launchScript()
+}
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+dependencies {
+    compile project(":sample-web-base")
+    developmentOnly "org.springframework.boot:spring-boot-devtools"
+}

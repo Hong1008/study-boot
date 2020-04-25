@@ -1,0 +1,67 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'groovy'
+}
+
+subprojects {
+
+    ext {
+        spockVersion = "1.2-groovy-2.5"
+        dockerComposePluginVersion = "0.6.6"
+        jibPluginVersion = "2.0.0"
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    group 'com.hong'
+    version '1.0-SNAPSHOT'
+    sourceCompatibility = '1.8'
+
+    sourceSets {
+        test.resources {
+            srcDirs "src/main/resources"
+            srcDirs "src/test/resources"
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+
+        // jasperreports
+        maven { url "http://jasperreports.sourceforge.net/maven2/" }
+        maven { url "http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/" }
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+
+            inheritOutputDirs = false
+            outputDir = compileJava.destinationDir
+            testOutputDir = compileTestJava.destinationDir
+        }
+    }
+
+    bootRun {
+        sourceResources sourceSets.main
+        jvmArgs "-XX:TieredStopAtLevel=1", "-Xverify:none"
+    }
+
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testCompile "org.assertj:assertj-core"
+        testCompile "org.spockframework:spock-core:${spockVersion}"
+        testCompile "org.mockito:mockito-core"
+    }
+
+}
